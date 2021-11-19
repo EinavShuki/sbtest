@@ -1,39 +1,37 @@
 import Person from "../models/personModel.js";
+import { formatPhone } from "../utils/utils.js";
 
-const getAllPeople = async (req, res) => {
+const getPeople = async (req, res) => {
   try {
-    const allPeople = await Person.find({});
-    res.json(allPeople);
-  } catch (err) {
-    res.status(404);
-    console.error(err);
-  }
-};
+    const { name = "", age = "", phone = "" } = req.query;
+    const query = {
+      name: { $regex: name },
+    };
 
-const getPeopleByName = async (req, res) => {
-  try {
-    let { name } = req.body;
-    const people = await Person.find({ name: { $regex: name } });
+    if (phone) {
+      query.phone_number = formatPhone(phone);
+    }
+
+    if (age) {
+      const year = new Date().getFullYear() - Number(age);
+      const firstOfYear = new Date(year, 0, 1);
+      const endOfYear = new Date(year, 11, 31);
+
+      query.birthday = {
+        $gte: new Date(firstOfYear),
+        $lt: new Date(endOfYear),
+      };
+    }
+
+    const people = await Person.find(query).sort({
+      name: 1,
+    });
+
     res.json(people);
   } catch (err) {
     res.status(404);
-    console.error(err);
+    console.error("Somthing is wrong", err);
   }
 };
 
-const getPeopleByPhone = async (req, res) => {
-  try {
-    let { phone } = req.body;
-    const people = await Person.find({ phone_number: phone });
-    res.json(people);
-  } catch (err) {
-    res.status(404);
-    console.error(err);
-  }
-};
-const getPeopleByAge = async () => {
-  try {
-  } catch (err) {}
-};
-
-export { getAllPeople, getPeopleByPhone, getPeopleByAge, getPeopleByName };
+export { getPeople };

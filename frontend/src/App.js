@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import HomeScreen from "./screens/HomeScreen";
-import Search from "./screens/SearchScreen";
+import SearchScreen from "./screens/SearchScreen";
 import Footer from "./components/Footer";
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomeScreen />} exact />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<SearchScreen />} />
         </Routes>
       </main>
       <Footer />

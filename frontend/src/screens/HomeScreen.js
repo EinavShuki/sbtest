@@ -6,11 +6,7 @@ const HomeScreen = () => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
-    //devounced
-    setTimeout(() => {
-      clearTimeout();
-      navigate("/search");
-    }, 0.5);
+    navigate("/search");
   };
 
   return (

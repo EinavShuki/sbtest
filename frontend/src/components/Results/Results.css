@@ -1,0 +1,63 @@
+.results_grid {
+  display: grid;
+  margin: 10px 0;
+  padding: 8px;
+}
+img {
+  flex: 0.5;
+  margin: 10px;
+}
+.name_age {
+  display: flex;
+}
+
+.result_info {
+  flex: 1;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+  flex-direction: column;
+}
+.result_info h3 {
+  margin: 0.5rem;
+}
+.result_info h4 {
+  margin: 0.1rem;
+  font-weight: 400;
+}
+
+.result_info h4 > a {
+  color: green;
+  font-size: 17px;
+  transition: all 2ms;
+  padding: 3px;
+}
+
+.result_info h4 > a:hover {
+  color: rgb(6, 173, 6);
+}
+
+.result_info h4 > a:active {
+  color: rgb(1, 121, 1);
+}
+.paginate {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+}
+.paginate_cl,
+.paginate_li {
+  cursor: pointer;
+  color: rgb(17, 36, 202);
+  border: 1px solid rgb(17, 36, 202);
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: all 275ms;
+}
+.paginate_cl:hover,
+.paginate_li:hover {
+  color: white;
+  background-color: rgb(17, 36, 202);
+}

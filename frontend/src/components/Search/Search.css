@@ -1,0 +1,25 @@
+.search_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.search_input {
+  width: 50vw;
+  height: 5vh;
+}
+.search_input:focus {
+  border-width: 2px;
+}
+.wrong_input {
+  background-color: rgba(255, 0, 0, 0.39);
+  transition: all ease-in-out;
+}
+.search_form button {
+  padding: 0.3rem;
+  margin: 3px;
+  font-size: 1.2rem;
+}
+
+/* ASAF */
+/* create blinking animation when the red bg is shown */

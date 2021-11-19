@@ -83,23 +83,5 @@ button:hover {
 /* Search screen */
 .search_div {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
 }
-.search_form {
-  position: relative;
-  top: 50%;
-}
-.search_input {
-  width: 50vw;
-  height: 5vh;
-}
-.search_input:focus {
-  border-width: 2px;
-}
-.wrong_input {
-  background-color: rgba(255, 0, 0, 0.39);
-  transition: all ease-in-out;
-}
-/* create blinking animation when the red bg is shown */
