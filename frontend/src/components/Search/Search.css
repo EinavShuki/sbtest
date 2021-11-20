@@ -1,7 +1,6 @@
 .search_form {
-  display: flex;
+  display: grid;
   justify-content: center;
-  align-items: center;
   margin-top: 10px;
 }
 .search_input {
@@ -15,11 +14,10 @@
   background-color: rgba(255, 0, 0, 0.39);
   transition: all ease-in-out;
 }
-.search_form button {
-  padding: 0.3rem;
-  margin: 3px;
-  font-size: 1.2rem;
-}
 
-/* ASAF */
-/* create blinking animation when the red bg is shown */
+.error_msg {
+  display: block;
+  text-align: center;
+  color: red;
+  font-weight: 600;
+}

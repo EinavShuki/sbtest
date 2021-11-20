@@ -16,17 +16,6 @@ const importData = async () => {
     //   { $set: { birthday: { $toDate: "$birthday" } } },
     // ]);
 
-    await Person.aggregate([
-      {
-        $project: {
-          name: 1,
-          birthday: {
-            $dateToString: { format: "%Y-%m-%d", date: "$birthday" },
-          },
-        },
-      },
-    ]);
-
     console.log("Data imported!");
     process.exit();
   } catch (error) {

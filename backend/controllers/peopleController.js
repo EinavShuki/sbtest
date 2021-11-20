@@ -1,11 +1,11 @@
 import Person from "../models/personModel.js";
 import { formatPhone } from "../utils/utils.js";
 
-const getPeople = async (req, res) => {
+const getPeople = async (req, res, next) => {
   try {
     const { name = "", age = "", phone = "" } = req.query;
     const query = {
-      name: { $regex: name },
+      name: { $regex: name, $options: "i" },
     };
 
     if (phone) {
@@ -26,11 +26,14 @@ const getPeople = async (req, res) => {
     const people = await Person.find(query).sort({
       name: 1,
     });
+    if (!people) {
+      return new Error("Error occured. Please try again");
+    }
 
     res.json(people);
   } catch (err) {
     res.status(404);
-    console.error("Somthing is wrong", err);
+    next(err);
   }
 };
 

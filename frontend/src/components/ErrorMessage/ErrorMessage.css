@@ -1,0 +1,13 @@
+.error_msg_div {
+  width: 85vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  margin: 15px auto;
+  color: black;
+  background-color: rgb(255 0 0 / 85%);
+}
+
+.error_msg_div h1 {
+  margin: auto;
+}
