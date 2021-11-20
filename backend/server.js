@@ -36,6 +36,3 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(process.env.PORT || 5000, console.log("Server listen to port 5000"));
 //so I can see this when I go to port5000
-app.get("/", (req, res) => {
-  res.send("API is runinng");
-});
