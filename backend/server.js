@@ -19,7 +19,7 @@ app.use("/api/", peopleRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(5000, console.log("Server listen to port 5000"));
+app.listen(process.env.PORT || 5000, console.log("Server listen to port 5000"));
 //so I can see this when I go to port5000
 app.get("/", (req, res) => {
   res.send("API is runinng");
