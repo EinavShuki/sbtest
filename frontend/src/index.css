@@ -63,11 +63,12 @@ button:hover {
 .start_btn {
   position: absolute;
   top: 13rem;
+  font-weight: 600;
   text-align: center;
   box-shadow: 0 0 9px black;
   margin: 0.5rem;
   border: none;
-  padding: 8px 15px 15px 15px;
+  padding: 8px 15px 9px 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;

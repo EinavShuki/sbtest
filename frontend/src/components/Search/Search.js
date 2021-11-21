@@ -7,7 +7,7 @@ const phoneRegex =
   /(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/;
 const nameRegex = /[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*/;
 
-const Search = ({ setResults, setIsLoading, setIsError }) => {
+const Search = ({ setResults, setIsLoading, setIsError, page, setTotal }) => {
   const [invalidSearch, setInvalidSearch] = useState("");
   const [inputValue, setInputValue] = useState("");
 
@@ -18,6 +18,7 @@ const Search = ({ setResults, setIsLoading, setIsError }) => {
     setInputValue(e.target.value);
     validateInput(e.target.value);
   };
+
   const validateInput = (input) => {
     const phone = input.match(phoneRegex)?.[0].trim();
     const age =
@@ -41,7 +42,7 @@ const Search = ({ setResults, setIsLoading, setIsError }) => {
     return () => {
       source.cancel("Cancelling in cleanup in Search");
     };
-  }, [debouncedValue]);
+  }, [debouncedValue, page]);
 
   const fetchPeople = async (source) => {
     const name = debouncedValue.match(nameRegex)?.[0].trim();
@@ -56,14 +57,16 @@ const Search = ({ setResults, setIsLoading, setIsError }) => {
     if (invalidSearch === "") {
       try {
         setIsLoading(true);
+
         const { data } = await axios.get("/api/", {
-          params: { name, phone, age },
+          params: { name, phone, age, page },
           cancelToken: source.token,
           config,
         });
-        if (!data.length) setIsError("Could not find any match results");
+        if (!data.people.length) setIsError("Could not find any match results");
 
-        setResults(data);
+        setResults(data.people);
+        setTotal(data.count);
       } catch (err) {
         console.error(`err`, err);
         setIsError("Could not find any match results");
@@ -73,9 +76,6 @@ const Search = ({ setResults, setIsLoading, setIsError }) => {
     }
   };
 
-  const searchHandler = (e) => {
-    e.preventDefault();
-  };
   return (
     <form className="search_form">
       <input

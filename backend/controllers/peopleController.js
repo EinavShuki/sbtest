@@ -3,7 +3,7 @@ import { formatPhone } from "../utils/utils.js";
 
 const getPeople = async (req, res, next) => {
   try {
-    const { name = "", age = "", phone = "" } = req.query;
+    const { name = "", age = "", phone = "", page = 1 } = req.query;
     const query = {
       name: { $regex: name, $options: "i" },
     };
@@ -23,17 +23,20 @@ const getPeople = async (req, res, next) => {
       };
     }
 
-    const people = await Person.find(query).sort({
-      name: 1,
-    });
-    if (!people) {
-      return new Error("Error occured. Please try again");
-    }
+    const perPage = 20;
 
-    res.json(people);
+    const count = await Person.countDocuments();
+    const people = await Person.find(query)
+      .limit(perPage)
+      .skip(perPage * page)
+      .sort({
+        name: 1,
+      });
+
+    res.json({ people, count });
   } catch (err) {
     res.status(404);
-    next(err);
+    return next(err);
   }
 };
 

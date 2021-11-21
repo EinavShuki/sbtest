@@ -6,22 +6,33 @@ import "./Results.css";
 
 import images from "../../imageExport";
 
-const Results = ({ results }) => {
+const Results = ({ results, setPage, total }) => {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
-  const itemsPerPage = 50;
-
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(results.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(results.length / itemsPerPage));
-  }, [results, itemOffset, itemsPerPage]);
+    setPageCount(results ? total / results.length : 0);
+  }, [total]);
 
+  // useEffect(() => {
+  //   const endOffset = itemOffset + itemsPerPage;
+  //   setCurrentItems(results.slice(itemOffset, endOffset));
+  //   setPageCount(Math.ceil(results.length / itemsPerPage));
+  // }, [results, itemOffset, itemsPerPage]);
+
+  // const handlePageClick = (e) => {
+  //   console.log(e);
+
+  // };
+
+  let forcePageObj = {};
   const handlePageClick = (e) => {
-    const newOffset = (e.selected * itemsPerPage) % results.length;
-
+    setPage(e.selected);
+    if (e.selected === 0) {
+      forcePageObj["forcePage"] = 3;
+    }
+    const newOffset = e.selected * results.length;
     setItemOffset(newOffset);
   };
 
@@ -42,8 +53,8 @@ const Results = ({ results }) => {
 
   return (
     <div className="results_grid">
-      {currentItems &&
-        currentItems.map((res, index) => (
+      {results &&
+        results.map((res, index) => (
           <div key={index} className="result_info">
             <div className="name_age">
               <h3>
@@ -77,6 +88,7 @@ const Results = ({ results }) => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
+        {...forcePageObj}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
         activeLinkClassName="paginate_li_active"

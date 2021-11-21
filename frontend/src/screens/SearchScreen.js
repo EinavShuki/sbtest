@@ -9,6 +9,10 @@ const SearchScreen = () => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  //Here I sould insert redux or usecontext
 
   return (
     <div className="search_div">
@@ -16,9 +20,15 @@ const SearchScreen = () => {
         setResults={setResults}
         setIsLoading={setIsLoading}
         setIsError={setIsError}
+        page={page}
+        setTotal={setTotal}
       />
       {isError !== "" && <ErrorMessage message={isError} />}
-      {isLoading ? <Loading /> : <Results results={results} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Results results={results} setPage={setPage} total={total} />
+      )}
     </div>
   );
 };
