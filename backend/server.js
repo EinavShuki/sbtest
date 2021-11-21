@@ -16,10 +16,6 @@ app.use(express.json());
 
 app.use("/api/", peopleRoutes);
 
-//hadle errors in server side by middlewares
-app.use(notFound);
-app.use(errorHandler);
-
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
@@ -33,6 +29,10 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running....");
   });
 }
+
+//hadle errors in server side by middlewares
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(process.env.PORT || 5000, console.log("Server listen to port 5000"));
 //so I can see this when I go to port5000

@@ -17,9 +17,9 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/safebreach/sb-fullstack-exercise-3.git"
   },
-  "author": "",
+  "author": "Einav_Shpigel",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/safebreach/sb-fullstack-exercise-3#readme",
+
   "dependencies": {
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
