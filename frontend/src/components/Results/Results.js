@@ -5,6 +5,7 @@ import { AiFillPhone } from "react-icons/ai";
 import "./Results.css";
 
 import images from "../../imageExport";
+import Pagination from "../Pagination/Pagination";
 
 const Results = ({ results, setPage, total }) => {
   const [currentItems, setCurrentItems] = useState(null);
@@ -82,20 +83,7 @@ const Results = ({ results, setPage, total }) => {
             <p style={{ marginBottom: "1rem" }}>{res.address}</p>
           </div>
         ))}
-      <ReactPaginate
-        className="paginate"
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        {...forcePageObj}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-        activeLinkClassName="paginate_li_active"
-        pageLinkClassName="paginate_li"
-        previousLinkClassName="paginate_cl"
-        nextLinkClassName="paginate_cl"
-      />
+      <Pagination />
     </div>
   );
 };
