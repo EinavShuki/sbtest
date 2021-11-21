@@ -1,6 +1,6 @@
 .error_msg_div {
   width: 85vw;
-  height: 10vh;
+  height: fit-content;
   display: flex;
   align-items: center;
   margin: 15px auto;
@@ -10,4 +10,6 @@
 
 .error_msg_div h1 {
   margin: auto;
+  text-align: center;
+  padding: 5px;
 }

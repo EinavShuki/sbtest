@@ -6,6 +6,7 @@
 .search_input {
   width: 50vw;
   height: 5vh;
+  padding-left: 5px;
 }
 .search_input:focus {
   border-width: 2px;
