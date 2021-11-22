@@ -2,10 +2,8 @@ import { BsFillQuestionDiamondFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
 import "./Results.css";
 import { useSelector } from "react-redux";
-
 import images from "../../imageExport";
 import Pagination from "../Pagination/Pagination";
-import { useEffect } from "react";
 
 const Results = () => {
   //get people state

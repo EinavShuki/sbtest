@@ -1,5 +1,4 @@
 import "../index.css";
-import { useEffect } from "react";
 import Results from "../components/Results/Results";
 import Search from "../components/Search/Search";
 import Loading from "../components/Loading/Loading";
@@ -14,8 +13,8 @@ const SearchScreen = () => {
   return (
     <div className="search_div">
       <Search />
-      {error && <ErrorMessage message={error} />}
       {loading ? <Loading /> : <Results />}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 };

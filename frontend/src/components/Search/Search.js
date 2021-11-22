@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import useDebounce from "../../hooks/useDecounce";
 import "./Search.css";
@@ -16,8 +15,8 @@ const Search = () => {
 
   const dispatch = useDispatch();
   //get page
-  const updatePage = useSelector((state) => state.updatePage);
-  const { page } = updatePage;
+  const currPage = useSelector((state) => state.updatePage);
+  const { page } = currPage;
 
   const debouncedValue = useDebounce(inputValue, DELAY); //costume hook
 
@@ -45,9 +44,13 @@ const Search = () => {
 
   useEffect(() => {
     fetchPeopleFunc();
-  }, [dispatch, debouncedValue, page]);
+  }, [dispatch, debouncedValue, invalidSearch]);
 
-  const fetchPeopleFunc = () => {
+  useEffect(() => {
+    fetchPeopleFunc(page);
+  }, [page]);
+
+  const fetchPeopleFunc = (currPage = 0) => {
     const name = debouncedValue.match(nameRegex)?.[0].trim();
     const phone = debouncedValue.match(phoneRegex)?.[0].trim();
     const age =
@@ -55,7 +58,7 @@ const Search = () => {
       null;
 
     if (invalidSearch === "") {
-      dispatch(fetchPeople(name, phone, age, page));
+      dispatch(fetchPeople(name, phone, age, currPage));
     }
   };
 

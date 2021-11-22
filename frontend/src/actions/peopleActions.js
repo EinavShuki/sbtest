@@ -23,16 +23,18 @@ export const fetchPeople =
         config,
       });
 
-      if (!data.people.length)
+      if (data.people.length === 0) {
+        console.log("here");
         dispatch({
           type: PEOPLE_FETCH_FAIL,
           payload: "Could not find any match results",
         });
-
-      dispatch({
-        type: PEOPLE_FETCH_SUCCESS,
-        payload: data,
-      });
+      } else {
+        dispatch({
+          type: PEOPLE_FETCH_SUCCESS,
+          payload: data,
+        });
+      }
     } catch (error) {
       dispatch({
         type: PEOPLE_FETCH_FAIL,

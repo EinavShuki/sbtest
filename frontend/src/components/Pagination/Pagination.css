@@ -1,0 +1,28 @@
+.Pagination_div {
+  display: flex;
+  justify-content: center;
+}
+.Pagination_link {
+  margin-top: 10px;
+}
+.Pagination_link button {
+  color: rgb(2, 93, 146);
+  background-color: white;
+  border: 1px solid rgb(2, 93, 146);
+  padding: 5px 10px;
+  transition: all 275ms;
+  margin: 5px;
+}
+
+.Pagination_link button:hover {
+  color: white;
+  background-color: rgb(4, 109, 170);
+}
+.Pagination_link button:active {
+  color: white;
+  background-color: rgb(2, 93, 146);
+}
+.current_page {
+  color: white !important;
+  background-color: rgb(2, 93, 146) !important;
+}

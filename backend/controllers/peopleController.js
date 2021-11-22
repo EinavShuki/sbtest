@@ -25,7 +25,7 @@ const getPeople = async (req, res, next) => {
 
     const perPage = 20;
 
-    const count = await Person.countDocuments();
+    const count = await Person.countDocuments(query);
     const people = await Person.find(query)
       .limit(perPage)
       .skip(perPage * page)
@@ -33,7 +33,7 @@ const getPeople = async (req, res, next) => {
         name: 1,
       });
 
-    res.json({ people, count });
+    res.json({ people, count, perPage });
   } catch (err) {
     res.status(404);
     return next(err);
