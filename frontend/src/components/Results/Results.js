@@ -1,41 +1,16 @@
-import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { BsFillQuestionDiamondFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
 import "./Results.css";
+import { useSelector } from "react-redux";
 
 import images from "../../imageExport";
 import Pagination from "../Pagination/Pagination";
+import { useEffect } from "react";
 
-const Results = ({ results, setPage, total }) => {
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-
-  useEffect(() => {
-    setPageCount(results ? total / results.length : 0);
-  }, [total]);
-
-  // useEffect(() => {
-  //   const endOffset = itemOffset + itemsPerPage;
-  //   setCurrentItems(results.slice(itemOffset, endOffset));
-  //   setPageCount(Math.ceil(results.length / itemsPerPage));
-  // }, [results, itemOffset, itemsPerPage]);
-
-  // const handlePageClick = (e) => {
-  //   console.log(e);
-
-  // };
-
-  let forcePageObj = {};
-  const handlePageClick = (e) => {
-    setPage(e.selected);
-    if (e.selected === 0) {
-      forcePageObj["forcePage"] = 3;
-    }
-    const newOffset = e.selected * results.length;
-    setItemOffset(newOffset);
-  };
+const Results = () => {
+  //get people state
+  const peopleFetch = useSelector((state) => state.peopleFetch);
+  const { results } = peopleFetch;
 
   const returnImage = (res) => {
     let endSlice = 6;
@@ -55,7 +30,7 @@ const Results = ({ results, setPage, total }) => {
   return (
     <div className="results_grid">
       {results &&
-        results.map((res, index) => (
+        results.people.map((res, index) => (
           <div key={index} className="result_info">
             <div className="name_age">
               <h3>

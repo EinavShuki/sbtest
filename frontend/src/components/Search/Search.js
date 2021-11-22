@@ -2,19 +2,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useDebounce from "../../hooks/useDecounce";
 import "./Search.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPeople } from "../../actions/peopleActions";
+
 const DELAY = 750;
 const phoneRegex =
   /(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/;
 const nameRegex = /[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*/;
 
-const Search = ({ setResults, setIsLoading, setIsError, page, setTotal }) => {
+const Search = () => {
   const [invalidSearch, setInvalidSearch] = useState("");
   const [inputValue, setInputValue] = useState("");
+
+  const dispatch = useDispatch();
+  //get page
+  const updatePage = useSelector((state) => state.updatePage);
+  const { page } = updatePage;
 
   const debouncedValue = useDebounce(inputValue, DELAY); //costume hook
 
   const changeInpute = (e) => {
-    setIsError("");
     setInputValue(e.target.value);
     validateInput(e.target.value);
   };
@@ -37,42 +44,18 @@ const Search = ({ setResults, setIsLoading, setIsError, page, setTotal }) => {
   };
 
   useEffect(() => {
-    const source = axios.CancelToken.source();
-    fetchPeople(source);
-    return () => {
-      source.cancel("Cancelling in cleanup in Search");
-    };
-  }, [debouncedValue, page]);
+    fetchPeopleFunc();
+  }, [dispatch, debouncedValue, page]);
 
-  const fetchPeople = async (source) => {
+  const fetchPeopleFunc = () => {
     const name = debouncedValue.match(nameRegex)?.[0].trim();
     const phone = debouncedValue.match(phoneRegex)?.[0].trim();
     const age =
       debouncedValue.replace(nameRegex, "").replace(phoneRegex, "").trim() ||
       null;
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
     if (invalidSearch === "") {
-      try {
-        setIsLoading(true);
-
-        const { data } = await axios.get("/api/", {
-          params: { name, phone, age, page },
-          cancelToken: source.token,
-          config,
-        });
-        if (!data.people.length) setIsError("Could not find any match results");
-
-        setResults(data.people);
-        setTotal(data.count);
-      } catch (err) {
-        console.error(`err`, err);
-        setIsError("Could not find any match results");
-      } finally {
-        setIsLoading(false);
-      }
+      dispatch(fetchPeople(name, phone, age, page));
     }
   };
 
