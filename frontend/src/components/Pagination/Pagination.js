@@ -5,7 +5,6 @@ import { updatePage } from "../../actions/peopleActions";
 
 function Pagination() {
   const [pageCount, setPageCount] = useState(1);
-  const [pageArray, setPageArray] = useState([]);
 
   const dispatch = useDispatch();
   const currPage = useSelector((state) => state.updatePage);
@@ -20,19 +19,6 @@ function Pagination() {
       if (singePage && page !== 0) dispatch(updatePage(0));
       const count = singePage ? 1 : Math.ceil(results.count / results.perPage);
       setPageCount(count);
-
-      const arrangeArray = () => {
-        if (pageCount < 3) {
-          setPageArray(
-            singePage ? [0] : Array.from({ length: pageCount }, (v, k) => k)
-          );
-        } else if (page + 2 < pageCount) {
-          setPageArray([Number(page), Number(page) + 1, Number(page) + 2]);
-        } else {
-          setPageArray([pageCount - 3, pageCount - 2, pageCount - 1]);
-        }
-      };
-      arrangeArray();
     }
   }, [results, pageCount]);
 
@@ -62,17 +48,36 @@ function Pagination() {
         </div>
       )}
 
-      {pageArray.map((e, index) => (
-        <div key={index} className="Pagination_link">
-          <button
-            id={e}
-            onClick={handlePageClick}
-            className={page === e ? "current_page" : ""}
-          >
-            {e + 1}
+      {Number(page) !== 0 && (
+        <div className="Pagination_link">
+          <button id={page - 1} onClick={handlePageClick}>
+            {page}
           </button>
         </div>
-      ))}
+      )}
+
+      <div className="Pagination_link">
+        <button id={page} onClick={handlePageClick} className="current_page">
+          {page + 1}
+        </button>
+      </div>
+
+      {page !== pageCount - 1 && page + 1 !== pageCount - 1 && (
+        <div className="Pagination_link">
+          <button id={page + 1} onClick={handlePageClick}>
+            {page + 2}
+          </button>
+        </div>
+      )}
+
+      {page !== pageCount - 1 && (
+        <div className="Pagination_link">
+          ...
+          <button id={pageCount - 1} onClick={handlePageClick}>
+            {pageCount}
+          </button>
+        </div>
+      )}
 
       {results && results.people.length > 0 && (
         <div className="Pagination_link">
