@@ -24,7 +24,6 @@ export const fetchPeople =
       });
 
       if (data.people.length === 0) {
-        console.log("here");
         dispatch({
           type: PEOPLE_FETCH_FAIL,
           payload: "Could not find any match results",
@@ -40,7 +39,7 @@ export const fetchPeople =
         type: PEOPLE_FETCH_FAIL,
         payload:
           error.response && error.response.data.message
-            ? error.response.data.message
+            ? error.response.statusText
             : error.message,
       });
     }

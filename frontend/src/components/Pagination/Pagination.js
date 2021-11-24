@@ -46,7 +46,7 @@ function Pagination() {
     } else {
       willPage = event.target.id;
     }
-    console.log(willPage);
+
     dispatch(updatePage(Number(willPage)));
   };
 

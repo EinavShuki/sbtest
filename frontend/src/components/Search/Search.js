@@ -27,7 +27,7 @@ const Search = () => {
 
   const validateInput = (input) => {
     const phone = input.match(phoneRegex)?.[0].trim();
-    const age =
+    let age =
       input.replace(nameRegex, "").replace(phoneRegex, "").trim() || null;
     setInvalidSearch("");
 

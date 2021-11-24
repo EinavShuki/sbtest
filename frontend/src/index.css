@@ -32,11 +32,9 @@ main {
 button {
   height: 5vh;
   width: fit-content;
-  border: none;
   font-weight: 400;
   background-color: black;
   color: white;
-  padding: 2.5px;
   cursor: pointer;
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
@@ -64,7 +62,6 @@ button:hover {
   position: absolute;
   top: 13rem;
   font-weight: 600;
-  text-align: center;
   box-shadow: 0 0 9px black;
   margin: 0.5rem;
   border: none;
