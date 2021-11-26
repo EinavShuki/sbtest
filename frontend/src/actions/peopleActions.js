@@ -7,7 +7,7 @@ import {
 } from "../constants/poeopleConstants";
 
 export const fetchPeople =
-  (name = "", phone = "", age = "", page = 0) =>
+  (text = "", page = 0) =>
   async (dispatch) => {
     try {
       dispatch({
@@ -19,7 +19,7 @@ export const fetchPeople =
       };
 
       const { data } = await axios.get("/api/", {
-        params: { name, phone, age, page },
+        params: { text, page },
         config,
       });
 
