@@ -5,7 +5,6 @@ const getPeople = async (req, res, next) => {
   try {
     const { text = "", page = 0 } = req.query;
     const regQuery = `.*${text}.*`;
-    // console.log(query, regQuery);
 
     const year = new Date().getFullYear() - Number(text);
     const firstOfYear = new Date(year, 0, 1);
@@ -18,14 +17,12 @@ const getPeople = async (req, res, next) => {
         { phone_number: new RegExp(regQuery) },
         {
           birthday: {
-            $gte: new Date(firstOfYear),
-            $lt: new Date(endOfYear),
+            $gte: typeof firstOfYear == "Date" ? new Date(firstOfYear) : 0,
+            $lt: typeof endOfYear == "Date" ? new Date(endOfYear) : 0,
           },
         },
       ],
     };
-
-    console.log(query);
 
     const perPage = 20;
 

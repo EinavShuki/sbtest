@@ -37,58 +37,62 @@ function Pagination() {
   };
 
   return (
-    <div className="Pagination_div">
+    <>
       {results && results.people.length > 0 && (
-        <div className="Pagination_link">
-          <button
-            disabled={Number(page) === 0}
-            id="previous"
-            onClick={handlePageClick}
-          >{`<<Previous`}</button>
+        <div className="Pagination_div">
+          <div className="Pagination_link">
+            <button
+              disabled={Number(page) === 0}
+              id="previous"
+              onClick={handlePageClick}
+            >{`<<Previous`}</button>
+          </div>
+
+          {Number(page) !== 0 && (
+            <div className="Pagination_link">
+              <button id={page - 1} onClick={handlePageClick}>
+                {page}
+              </button>
+            </div>
+          )}
+
+          <div className="Pagination_link">
+            <button
+              id={page}
+              onClick={handlePageClick}
+              className="current_page"
+            >
+              {page + 1}
+            </button>
+          </div>
+
+          {page !== pageCount - 1 && page + 1 !== pageCount - 1 && (
+            <div className="Pagination_link">
+              <button id={page + 1} onClick={handlePageClick}>
+                {page + 2}
+              </button>
+            </div>
+          )}
+
+          {page !== pageCount - 1 && (
+            <div className="Pagination_link">
+              ...
+              <button id={pageCount - 1} onClick={handlePageClick}>
+                {pageCount}
+              </button>
+            </div>
+          )}
+
+          <div className="Pagination_link">
+            <button
+              disabled={page === pageCount - 1}
+              id="next"
+              onClick={handlePageClick}
+            >{`Next>>`}</button>
+          </div>
         </div>
       )}
-
-      {Number(page) !== 0 && (
-        <div className="Pagination_link">
-          <button id={page - 1} onClick={handlePageClick}>
-            {page}
-          </button>
-        </div>
-      )}
-
-      <div className="Pagination_link">
-        <button id={page} onClick={handlePageClick} className="current_page">
-          {page + 1}
-        </button>
-      </div>
-
-      {page !== pageCount - 1 && page + 1 !== pageCount - 1 && (
-        <div className="Pagination_link">
-          <button id={page + 1} onClick={handlePageClick}>
-            {page + 2}
-          </button>
-        </div>
-      )}
-
-      {page !== pageCount - 1 && (
-        <div className="Pagination_link">
-          ...
-          <button id={pageCount - 1} onClick={handlePageClick}>
-            {pageCount}
-          </button>
-        </div>
-      )}
-
-      {results && results.people.length > 0 && (
-        <div className="Pagination_link">
-          <button
-            disabled={page === pageCount - 1}
-            id="next"
-            onClick={handlePageClick}
-          >{`Next>>`}</button>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 

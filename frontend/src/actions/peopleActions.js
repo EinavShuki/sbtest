@@ -26,21 +26,27 @@ export const fetchPeople =
       if (data.people.length === 0) {
         dispatch({
           type: PEOPLE_FETCH_FAIL,
-          payload: "Could not find any match results",
+          payload: { error: "Could not find any match results", results: data },
         });
       } else {
         dispatch({
           type: PEOPLE_FETCH_SUCCESS,
-          payload: data,
+          payload: {
+            error: null,
+            results: data,
+          },
         });
       }
     } catch (error) {
       dispatch({
         type: PEOPLE_FETCH_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.statusText
-            : error.message,
+        payload: {
+          error:
+            error.response && error.response.data.message
+              ? error.response.statusText
+              : error.message,
+          results: [],
+        },
       });
     }
   };

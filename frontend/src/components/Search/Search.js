@@ -7,7 +7,6 @@ import { fetchPeople } from "../../actions/peopleActions";
 const DELAY = 1000;
 
 const Search = () => {
-  const [invalidSearch, setInvalidSearch] = useState("");
   const [inputValue, setInputValue] = useState("");
 
   const dispatch = useDispatch();
@@ -23,14 +22,14 @@ const Search = () => {
 
   useEffect(() => {
     fetchPeopleFunc();
-  }, [dispatch, debouncedValue, invalidSearch]);
+  }, [dispatch, debouncedValue]);
 
   useEffect(() => {
     fetchPeopleFunc(page);
   }, [page]);
 
   const fetchPeopleFunc = (currPage = 0) => {
-    dispatch(fetchPeople(debouncedValue));
+    dispatch(fetchPeople(debouncedValue, currPage));
   };
 
   return (
@@ -38,13 +37,9 @@ const Search = () => {
       <input
         autoFocus
         onChange={(e) => changeInpute(e)}
-        className={
-          "search_input " + (invalidSearch.length ? "wrong_input" : "")
-        }
+        className="search_input "
         placeholder="Enter name, phone or age"
       />
-
-      {invalidSearch !== "" && <div className="error_msg">{invalidSearch}</div>}
     </form>
   );
 };

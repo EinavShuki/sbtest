@@ -12,14 +12,12 @@ export const peopleFetchReducer = (state = {}, action) => {
         loading: true,
       };
     case PEOPLE_FETCH_SUCCESS:
-      return {
-        loading: false,
-        results: action.payload,
-      };
     case PEOPLE_FETCH_FAIL:
       return {
+        ...state,
         loading: false,
-        error: action.payload,
+        results: action.payload.results,
+        error: action.payload.error,
       };
     default:
       return state;

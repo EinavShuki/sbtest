@@ -4,6 +4,7 @@ import Search from "../components/Search/Search";
 import Loading from "../components/Loading/Loading";
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const SearchScreen = () => {
   //get people state
